@@ -6,17 +6,20 @@
 
 # Family: SmartFusion2 , Die: M2S010 , Package: 400 VF
 
-# Date generated: Sat Oct 27 18:35:16 2018 
+# Date generated: Sat Oct 27 19:06:54 2018 
+
 
 # 
 # User Locked I/O Bank Settings
 # 
+
 
 # 
 # Unlocked I/O Bank Settings
 # The I/O Bank Settings can be locked by directly editing this file
 # or by making changes in the I/O Attribute Editor
 # 
+
 
 # 
 # User Locked I/O settings
@@ -43,6 +46,7 @@ set_io clk            \
 set_io resetn         \
     -pinname B19      \
     -fixed yes        \
+    -RES_PULL Up      \
     -DIRECTION INPUT
 
 
