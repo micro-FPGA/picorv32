@@ -15,6 +15,7 @@ module system (
 
 	// 4096 32bit words = 16kB memory
 	parameter MEM_SIZE = 1024;
+	parameter BOOTROM_WORDS = 512;
 
 	wire trap;
 
@@ -53,6 +54,18 @@ module system (
 		.mem_la_wstrb(mem_la_wstrb)
 	);
 
+//
+// Generated boot ROM
+//
+    wire [31:0] bootrom_data;
+    reg [31:0] addr_latched;
+
+bootrom my_bootstrap (
+    .A(addr_latched[9:0]),
+    .D(bootrom_data )
+);
+
+
 	reg [31:0] memory [0:MEM_SIZE-1]  /* synthesis syn_ramstyle="ebr" */ ;
 	
 	
@@ -72,11 +85,12 @@ module system (
 	end
 
 
-
-    // New Code
-	reg [31:0] addr_latched;
 	assign mem_rdata = memory[addr_latched];
 	
+    wire [31:0] ram_data;
+	assign mem_rdata = (addr_latched < BOOTROM_WORDS) ? ram_data : bootrom_data;
+
+
 //	assign mem_rdata = 32'h 0000_0013; // NOP
 
     always @(posedge clk) begin
