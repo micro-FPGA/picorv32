@@ -1,0 +1,77 @@
+//////////////////////////////////////////////////////////////////////
+// Created by Microsemi SmartDesign Sat Oct 27 14:00:52 2018
+// Testbench Template
+// This is a basic testbench that instantiates your design with basic 
+// clock and reset pins connected.  If your design has special
+// clock/reset or testbench driver requirements then you should 
+// copy this file and modify it. 
+//////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Company: <Name>
+//
+// File: tb.v
+// File history:
+//      <Revision number>: <Date>: <Comments>
+//      <Revision number>: <Date>: <Comments>
+//      <Revision number>: <Date>: <Comments>
+//
+// Description: 
+//
+// <Description here>
+//
+// Targeted device: <Family::SmartFusion2> <Die::M2S010> <Package::400 VF>
+// Author: <Name>
+//
+/////////////////////////////////////////////////////////////////////////////////////////////////// 
+
+`timescale 1ns/100ps
+
+module tb;
+
+parameter SYSCLK_PERIOD = 100;// 10MHZ
+
+reg SYSCLK;
+reg NSYSRESET;
+
+initial
+begin
+    SYSCLK = 1'b0;
+    NSYSRESET = 1'b0;
+end
+
+//////////////////////////////////////////////////////////////////////
+// Reset Pulse
+//////////////////////////////////////////////////////////////////////
+initial
+begin
+    #(SYSCLK_PERIOD * 10 )
+        NSYSRESET = 1'b1;
+end
+
+
+//////////////////////////////////////////////////////////////////////
+// Clock Driver
+//////////////////////////////////////////////////////////////////////
+always @(SYSCLK)
+    #(SYSCLK_PERIOD / 2.0) SYSCLK <= !SYSCLK;
+
+
+//////////////////////////////////////////////////////////////////////
+// Instantiate Unit Under Test:  system
+//////////////////////////////////////////////////////////////////////
+system system_0 (
+    // Inputs
+    .clk(SYSCLK),
+    .resetn(NSYSRESET),
+
+    // Outputs
+    .DEBUG_LED( ),
+    .LED( )
+
+    // Inouts
+
+);
+
+endmodule
+
