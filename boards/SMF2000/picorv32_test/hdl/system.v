@@ -84,12 +84,12 @@ bootrom my_bootstrap (
 		rstn_sync <= resetn;	
 	end
 
-
-	assign mem_rdata = memory[addr_latched];
-	
     wire [31:0] ram_data;
-	assign mem_rdata = (addr_latched < BOOTROM_WORDS) ? ram_data : bootrom_data;
+	assign ram_data = memory[addr_latched];
+	
 
+	assign mem_rdata = (addr_latched < BOOTROM_WORDS) ? bootrom_data : ram_data;
+//    assign mem_rdata = ram_data;
 
 //	assign mem_rdata = 32'h 0000_0013; // NOP
 
